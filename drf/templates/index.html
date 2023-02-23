@@ -1,0 +1,69 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" id="theme-link">
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <title>CHB</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo_chb"></div>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+           </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Rating</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Guides</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Store</a>
+            </li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="log-button" type="submit">Log Out</button>
+          </form>
+          <form action="/profile/">
+            <button class="prof-button" type="submit"></button>
+          </form>
+          {% else %}
+            <form action="/accounts/steam/login/">
+              <button class="log-button" type="submit">Log In</button>
+            </form>
+          {% endif %}
+    </div>
+
+    <div class="content">
+      <div class="container">
+        <div class='topcontent'>
+          <h1>Custom Hero Battle</h1>
+          <p>In this game, just luck is not enough, you need to have the skills to defeat your enemies, develop a strategy that the enemy cannot read, choose the right abilities and use them skillfully, and win the match.</p>
+        </div>
+        <div class='last_news'>
+          {% for i in news%}
+            <div class="news">
+              <span class='title'>{{i.title}}</span>
+              <span class='description'>{{i.description}}</span>
+              <img class="news_image" src={{i.image.url}} alt="Avatar">
+            </div>
+          {% endfor %}
+        </div>    
+      </div>
+    </div>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

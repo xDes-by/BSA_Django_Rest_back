@@ -1,0 +1,116 @@
+{% load static %}
+{% load humanize %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" id="theme-link">
+    <link rel="shortcut icon" href="{% static 'images/logo.png' %}" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600&family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="{% static 'js/jquery-3.6.1.min.js' %}"></script>
+    <title>CHB</title>
+</head>
+<body>
+    <div class="header">
+        <div class="logo_chb"></div>
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+           </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Rating</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Guides</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Store</a>
+            </li>
+          </ul>
+          {% if user.is_authenticated %}
+          <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+              <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}"/>
+            {% endif %}
+            <button class="log-button" type="submit">Log Out</button>
+          </form>
+          <form action="/profile/">
+            <button class="prof-button" type="submit"></button>
+          </form>
+          {% else %}
+            <form action="/accounts/steam/login/">
+              <button class="log-button" type="submit">Log In</button>
+            </form>
+          {% endif %}
+    </div>
+
+    <div class="content_profile">
+      {% for i in profile %}
+        <div class="container_profile">
+          <div class="left_side">
+            <img class="ava" src={{extra.avatarfull}} alt="Avatar">
+            <span>{{ user.username }}</span>
+              <p>id: {{i.user}}</p> 
+              <p>Уровень: {{i.level}}</p> 
+              <p>Опыт: {{i.exp}}</p> 
+              <p>Рейтинг: {{i.rating}}</p> 
+          </div>
+          <div class="right_side">
+            <div class="top_right">
+
+              <div class="grafic">
+                <div class="dial" data-width="100" data-lineWidth="25">{{winrate}}</div>
+                <p>Побед:</p>
+                <p>{{statistic.wins|intcomma}}</p>
+                <p>Поражений:</p>
+                <p>{{statistic.lose|intcomma}}</p>
+              </div> 
+
+              <div class="grafic">
+                <div class="dial" data-width="100" data-lineWidth="25">{{mvp}}</div>
+                <p>Игр:</p>
+                <p>{{statistic.games|intcomma}}</p>
+                <p>MVP:</p>
+                <p>{{statistic.mvp|intcomma}}</p>
+              </div>  
+
+              <div class="grafic">
+                <div class="dial" data-width="100" data-lineWidth="25">{{kill_death}}</div>
+                <p>Убийств:</p>
+                <p>{{statistic.kill|intcomma}}</p>
+                <p>Смертей:</p>
+                <p>{{statistic.death|intcomma}}</p>
+              </div>  
+
+              <div class="grafic">
+                <div class="dial" data-width="100" data-lineWidth="25">{{damage}}</div>
+                <p>Нанес урона:</p>
+                <p>{{statistic.damage_deal|intcomma}}</p>
+                <p>Получил урона:</p>
+                <p>{{statistic.damage_take|intcomma}}</p>
+              </div>  
+
+              <div class="grafic">
+                <div class="dial" data-width="100" data-lineWidth="25">{{creep_kill_death}}</div>
+                <p>Крипов убито:</p>
+                <p>{{statistic.creep_kill|intcomma}}</p>
+                <p>Заденаил:</p>
+                <p>{{statistic.creep_denay|intcomma}}</p>
+              </div>  
+            </div>
+            <div class="bottom_right">
+            
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
