@@ -22,9 +22,7 @@ class Product(models.Model):
     upgrade_price = models.IntegerField(default=0, verbose_name="Цена улучшения")
     rp_price = models.IntegerField(default=0, verbose_name="Цена в РП")
     rp_upgrade_price = models.IntegerField(default=0, verbose_name="Цена улучшения в РП")
-    item_level = models.IntegerField(default=1, verbose_name="Уровень предмета")
     category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, verbose_name="Категория")
-    # image = models.ImageField(upload_to='images/product/', verbose_name="Фото")
     can_upgrade = models.BooleanField(default=False, verbose_name='Улучшаемый')
 
     def __str__(self):
@@ -35,7 +33,7 @@ class Product(models.Model):
         verbose_name_plural = 'Товары'
 
 class User(models.Model):
-    steamID = models.IntegerField(verbose_name='Пользователь')
+    steamID = models.BigIntegerField(verbose_name='Пользователь')
     coins = models.IntegerField(verbose_name='Монет', default=0)
     rp = models.IntegerField(verbose_name='РП', default=0)
     total_coins = models.IntegerField(verbose_name='Суммарный донат', default=0)
@@ -50,8 +48,6 @@ class User(models.Model):
 
 class UserProfile(models.Model):
     user = models.ForeignKey(User, related_name='profile', on_delete=models.CASCADE, verbose_name='Профиль')
-    wins = models.IntegerField(default=0, verbose_name="Побед")
-    lose = models.IntegerField(default=0, verbose_name="Поражений")
     games = models.IntegerField(default=0, verbose_name="Игр") 
     level = models.IntegerField(default=1, verbose_name="Уровень")
     player_exp = models.IntegerField(default=0, verbose_name="Опыт")
@@ -82,7 +78,7 @@ class UserProfile(models.Model):
 class UserItems(models.Model):
     user = models.ForeignKey(User, related_name='product', on_delete=models.CASCADE,  default=None, verbose_name='Items')
     product = models.ForeignKey(Product, on_delete=models.CASCADE, default=None, verbose_name='Предмет')
-    count = models.IntegerField(default=1, verbose_name='Количество')
+    count = models.IntegerField(default=1, verbose_name='Уровень/Кол-во')
     active = models.BooleanField(default=False, verbose_name='Активность')
 
     def __str__(self):

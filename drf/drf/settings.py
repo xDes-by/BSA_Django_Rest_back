@@ -25,9 +25,9 @@ SECRET_KEY = 'django-insecure-$179!vfioli42&!l8xj))@r==@s+yh&3)efoc$1l1c!jn4*)#3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '178.250.157.124']
+ALLOWED_HOSTS = ['127.0.0.1', '91.240.87.224']
 
-CSRF_TRUSTED_ORIGINS=['http://178.250.157.124']
+CSRF_TRUSTED_ORIGINS=['http://91.240.87.224']
 
 # Application definition.
 
@@ -62,9 +62,9 @@ INSTALLED_APPS = [
     'crispy_forms',
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
-ABSOLUTE_URL = '127.0.0.1:8000'
+ABSOLUTE_URL = '178.250.157.124'
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
@@ -113,10 +113,21 @@ WSGI_APPLICATION = 'drf.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE':   'django.db.backends.mysql',
+        'NAME':     'bsa',
+        'USER':     'xdes',
+        'PASSWORD': '3419613zZ',
+        'HOST':     '127.0.0.1',
+        'PORT':     '3306',
     }
 }
 
@@ -156,10 +167,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+STATIC_ROOT = BASE_DIR / 'static'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'

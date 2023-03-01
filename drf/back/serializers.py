@@ -5,10 +5,11 @@ from .models import User, UserProfile, UserItems
 
 class UserItemsSerializer(serializers.ModelSerializer):
     product = serializers.CharField(source='product.name', max_length=200)
+    can_upgrade = serializers.CharField(source='product.can_upgrade', max_length=200)
 
     class Meta:
         model = UserItems
-        fields = ['count', 'active', 'product']
+        fields = ['count', 'active', 'product', 'can_upgrade']
 
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
@@ -21,4 +22,4 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['steamID', 'product', 'profile']
+        fields = ['steamID', 'product', 'profile', 'coins', 'rp', 'total_coins', 'ban_status']

@@ -25,7 +25,7 @@ class ProductCategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('name', 'price', 'category', 'item_level', 'can_upgrade')
+    list_display = ('name', 'price', 'category', 'can_upgrade')
     list_display_links = ('name', )
     
     # def get_photo(self, obj):

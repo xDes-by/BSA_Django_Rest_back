@@ -9,8 +9,8 @@ from back import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
-    path("s/", UserListView.as_view()),
-    # path("s1/", views.hello_world),
+    path("api_game_start/", UserListView.as_view()),
+    path("api_buy_item/", BuyItemView.as_view()),
     path("callback/", UserProfileView.as_view()),
     path('login/', views.login),
     path('', views.home, name='home'),
