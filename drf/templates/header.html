@@ -1,0 +1,27 @@
+{% load static %}
+
+<div class="nav">
+    <img class="logo" src="{% static 'images/logo.png' %}" alt="">
+    <div class="nav-content">
+      <a href="/"><img class="btn" src="{% static 'images/home.png' %}" alt=""></a> 
+      {% if user.is_staff %}
+        <a class="btn" href="/">Donate</a>
+      {% endif %}
+        {% if user.is_authenticated %}
+        <form method="post" action="{% url 'account_logout' %}">
+          {% csrf_token %}
+          {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+          {% endif %}
+          <button class="btn" type="submit"><img class="btn" src="{% static 'images/logout.png' %}" alt=""></button>
+        </form>
+        <form action="/profile/">
+          <button class="btn" type="submit"><img class="btn" src="{% static 'images/profile.png' %}" alt=""></button>
+        </form>
+        {% else %}
+        <form action="/accounts/steam/login/">
+          <button class="btn" type="submit"><img class="btn" src="{% static 'images/login.png' %}" alt=""></button>
+        </form>
+        {% endif %}
+    </div>
+  </div>
